@@ -24,8 +24,7 @@ class Home extends Component {
           className="center"
           ref={(ref) => (this.pond = ref)}
           files={this.state.file}
-          allowMultiple={true}
-          allowReorder={true}
+          allowMultiple={false}
           credits=""
           maxFiles={3}
           server="/api"

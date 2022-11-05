@@ -1,15 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import { Routes, Route } from 'react-router';
-import Home from './pages/Home';
+import logo from "./logo.svg";
+import "./App.css";
+import { Routes, Route } from "react-router";
+import Home from "./pages/Home";
+import Charts from "./pages/Charts";
 
 function App() {
-  return <Routes>
-    <Route path= "/" element={<Home/>}/>
-  </Routes>
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/charts" element={<Charts />} />
+    </Routes>
+  );
 }
 
-{/* <div className="App">
+{
+  /* <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -24,6 +29,7 @@ function App() {
           Learn React
         </a>
       </header>
-    </div> */}
+    </div> */
+}
 
 export default App;

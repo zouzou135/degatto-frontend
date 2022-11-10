@@ -1,15 +1,13 @@
-.chart-title {
-    margin-top: 20px;
-    font-weight: bold;
-}
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 
 .chart-btn-container {
     width: fit-content;
     display: flex;
     overflow: hidden;
-    margin: 10px;
+    margin: 20px;
     border-radius: 10px;
-    background-color: rgb(157, 21, 11);
+    background-color: #fac26d;
 }
 
 .chart-btn {
@@ -20,16 +18,16 @@
     padding: 0.5rem 1rem;
     font-size: 1.4rem;
     cursor: pointer;
-    background-color: rgb(157, 21, 11);
+    background-color: #fac26d;
     transition: background-color 0.3s;
 }
 
 .chart-btn:hover {
-   background-color: rgb(118, 35, 29);
+   background-color: #b39363;
 }
 
 .chart-btn.active {
-    background-color: rgb(118, 35, 29);
+    background-color: #b39363;
  }
 
 .center-horizontal-container {
@@ -42,8 +40,21 @@
     display: none;
     width: 100%;
     padding: 30px 10%;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 80px;
+
  }
 
 .chart.active {
     display: block;
+ }
+
+ .charts-container {
+    width: 100%;
+ }
+
+ .download-chart-btn {
+    float: left;
+    margin-left: 10%;
  }

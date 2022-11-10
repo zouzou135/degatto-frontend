@@ -2,6 +2,9 @@ import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import WordCloud from "react-d3-cloud";
+import downloadjs from "downloadjs";
+import html2canvas from "html2canvas";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -147,14 +150,18 @@ function Charts(props) {
     setCurrentChartID(parseInt(chartOB.id));
   };
 
+  const downloadChart = async () => {
+    const canvas = await html2canvas(document.querySelector("#charts"));
+    const dataURL = canvas.toDataURL("image/png");
+    downloadjs(dataURL, "chart-download.png", "image/png");
+  };
+
   return (
     <div className="App">
       <div className="center-horizontal-container">
         <button className="primary-button mt-3" onClick={goHome}>
           <FontAwesomeIcon icon={faHome} />
         </button>
-
-        <h2 className="chart-title">Choose a type of graph</h2>
         <div className="chart-btn-container">
           {chartTypes.map((chartOB, i) => {
             return (
@@ -174,44 +181,55 @@ function Charts(props) {
           })}
         </div>
 
-        <div
-          className={
-            "chart" +
-            " " +
-            (currentChartID === chartTypes[0].id ? "active" : "")
-          }
-        >
-          <Bar options={options} data={data} />
-        </div>
+        <div className="charts-container ">
+          <button
+            className="primary-button mt-3 download-chart-btn"
+            onClick={downloadChart}
+          >
+            Capture
+          </button>
 
-        <div
-          className={
-            "chart" +
-            " " +
-            (currentChartID === chartTypes[1].id ? "active" : "")
-          }
-        >
-          <Pie data={pieData} />
-        </div>
+          <div id="charts" className="charts-container">
+            <div
+              className={
+                "chart" +
+                " " +
+                (currentChartID === chartTypes[0].id ? "active" : "")
+              }
+            >
+              <Bar options={options} data={data} />
+            </div>
 
-        <div
-          className={
-            "chart" +
-            " " +
-            (currentChartID === chartTypes[2].id ? "active" : "")
-          }
-        >
-          <Scatter options={scatterChartOptions} data={scatterChartData} />
-        </div>
+            <div
+              className={
+                "chart" +
+                " " +
+                (currentChartID === chartTypes[1].id ? "active" : "")
+              }
+            >
+              <Pie data={pieData} />
+            </div>
 
-        <div
-          className={
-            "chart" +
-            " " +
-            (currentChartID === chartTypes[3].id ? "active" : "")
-          }
-        >
-          <WordCloud data={words} />
+            <div
+              className={
+                "chart" +
+                " " +
+                (currentChartID === chartTypes[2].id ? "active" : "")
+              }
+            >
+              <Scatter options={scatterChartOptions} data={scatterChartData} />
+            </div>
+
+            <div
+              className={
+                "chart" +
+                " " +
+                (currentChartID === chartTypes[3].id ? "active" : "")
+              }
+            >
+              <WordCloud data={words} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

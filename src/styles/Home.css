@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 .center {
     margin: 0;
     position: absolute;
@@ -18,17 +20,17 @@
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: rgb(157, 21, 11);
+    background-color: #fac26d;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 7px rgb(116, 19, 8);
+    box-shadow: 0 7px #c6ad86;
   }
   
-  .primary-button:hover {background-color: rgb(171, 50, 42)}
+  .primary-button:hover {background-color: #f5d19c}
   
   .primary-button:active {
-    background-color: rgb(171, 50, 42);
-    box-shadow: 0 4px rgb(118, 35, 29);
+    background-color: #f5d19c;
+    box-shadow: 0 4px #c6ad86;
     transform: translateY(3px);
   }
 
@@ -104,11 +106,47 @@
 
 /* bordered drop area */
 .filepond--panel-root {
-    background-color: transparent;
-    border: 2px solid #2c3340;
+    background-color: #f1f1f1;
+    /* border: 2px solid #2c3340; */
 }
 
 .filepond--root {
     width: 256px;
     text-align: center;
+}
+
+.bg-img {
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-image: url("../images/space.jpg");
+}
+
+.degatto-logo {
+    margin-bottom: 10px;
+    width: 150px;
+    height: 150px;
+    margin-left: 17.5px;
+}
+
+.project-title {
+    font-size: 80px;
+    color: white;
+    font-family: 'Fredoka One';
+}
+
+.logo-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

@@ -24,6 +24,10 @@ import {
   faChartPie,
   faArrowUpRightDots,
   faCloud,
+  faPlusMinus,
+  faPlus,
+  faMinus,
+  faGauge,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,14 +35,45 @@ import "../styles/Charts.css";
 
 function Charts(props) {
   let chartTypes = [
-    { id: 1, name: "Bar Graph", icon: faChartSimple },
+    { id: 1, name: "Bar Chart", icon: faChartSimple },
     { id: 2, name: "Pie Chart", icon: faChartPie },
     { id: 3, name: "Dot Plot", icon: faArrowUpRightDots },
     { id: 4, name: "Word Cloud", icon: faCloud },
   ];
 
+  let chartInfoTypes = [
+    [
+      { id: 1, name: "General", icon: faPlusMinus },
+      { id: 2, name: "Positive", icon: faPlus },
+      { id: 3, name: "Negative", icon: faMinus },
+      { id: 4, name: "Neutral", icon: faGauge },
+    ],
+    [
+      { id: 1, name: "General", icon: faPlusMinus },
+      { id: 2, name: "Positive", icon: faPlus },
+      { id: 3, name: "Negative", icon: faMinus },
+      { id: 4, name: "Neutral", icon: faGauge },
+    ],
+    [
+      { id: 1, name: "General", icon: faPlusMinus },
+      { id: 2, name: "Positive", icon: faPlus },
+      { id: 3, name: "Negative", icon: faMinus },
+      { id: 4, name: "Neutral", icon: faGauge },
+    ],
+    [
+      { id: 1, name: "General", icon: faPlusMinus },
+      { id: 2, name: "Positive", icon: faPlus },
+      { id: 3, name: "Negative", icon: faMinus },
+      { id: 4, name: "Neutral", icon: faGauge },
+      { id: 5, name: "Adjectives", icon: faGauge },
+    ],
+  ];
+
   const navigate = useNavigate();
   const [currentChartID, setCurrentChartID] = useState(chartTypes[0].id);
+  const [currentInfoTypeID, setCurrentInfoTypeID] = useState(
+    chartInfoTypes[currentChartID - 1][0].id
+  );
 
   const words = [
     { text: "Hey", value: 1000 },
@@ -136,7 +171,7 @@ function Charts(props) {
       {
         label: "Dataset 1",
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        backgroundColor: "rgb(118, 35, 29)",
+        backgroundColor: "#fac26d",
       },
     ],
   };
@@ -176,6 +211,27 @@ function Charts(props) {
                 }
               >
                 <FontAwesomeIcon icon={chartOB.icon} />
+                <div className="chart-name">{chartOB.name}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="chart-btn-container mt-0">
+          {chartInfoTypes[currentChartID - 1].map((infoTypeOB, i) => {
+            return (
+              <div
+                key={i}
+                id={infoTypeOB.id}
+                onClick=""
+                className={
+                  "chart-btn" +
+                  " " +
+                  (currentInfoTypeID === infoTypeOB.id ? "active" : "")
+                }
+              >
+                <FontAwesomeIcon icon={infoTypeOB.icon} />
+                <div className="chart-name">{infoTypeOB.name}</div>
               </div>
             );
           })}

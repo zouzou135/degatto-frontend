@@ -18,10 +18,12 @@ function Home(props) {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [files, setFiles] = useState([]);
 
   const processData = (event) => {
     event.preventDefault();
     console.log("here");
+    console.log(files);
     let url = "http://localhost:3001/process-data";
 
     setIsLoading(true);
@@ -62,23 +64,18 @@ function Home(props) {
             <div className="upload-area-container">
               <FilePond
                 required
-                files={file}
+                files={files}
                 allowMultiple={false}
                 credits=""
-                maxFiles={3}
-                server="/api"
+                maxFiles={1}
+                server="http://localhost:3001/upload-file"
                 acceptedFileTypes={[
                   "application/vnd.ms-excel",
                   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                   "text/csv",
                 ]}
                 name="files" /* sets the file input name, it's filepond by default */
-                // onupdatefiles={(fileItems) => {
-                //   // Set currently active file objects to this.state
-                //   this.setState({
-                //     files: fileItems.map((fileItem) => fileItem.file),
-                //   });
-                // }}
+                onupdatefiles={setFiles}
               />
 
               <span className="file-alert">You have to choose a file</span>

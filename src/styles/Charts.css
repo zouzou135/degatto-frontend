@@ -46,6 +46,10 @@
 
  }
 
+ .piechart {
+   padding: 30px 30%;
+}
+
 .chart.active {
     display: block;
  }

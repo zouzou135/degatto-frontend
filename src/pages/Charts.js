@@ -237,7 +237,7 @@ function Charts(props) {
 
             <div
               className={
-                "chart" +
+                "piechart chart" +
                 " " +
                 (currentChartID === chartTypes[1].id ? "active" : "")
               }

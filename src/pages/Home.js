@@ -40,7 +40,7 @@ function Home(props) {
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
-        navigate("/charts");
+        navigate("/charts", { state: { resJson: responseJson } });
       })
       .catch((error) => {
         alert("Failed to Process.");

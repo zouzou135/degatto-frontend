@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import WordCloud from "react-d3-cloud";
 import downloadjs from "downloadjs";
 import html2canvas from "html2canvas";
@@ -22,12 +22,12 @@ import {
   faHome,
   faChartSimple,
   faChartPie,
-  faArrowUpRightDots,
-  faCloud,
-  faPlusMinus,
-  faPlus,
-  faMinus,
-  faGauge,
+  faGlobe,
+  faMaximize,
+  faTarp,
+  faHourglassHalf,
+  faPalette,
+  faCouch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -37,35 +37,24 @@ function Charts(props) {
   let chartTypes = [
     { id: 1, name: "Bar Chart", icon: faChartSimple },
     { id: 2, name: "Pie Chart", icon: faChartPie },
-    { id: 3, name: "Dot Plot", icon: faArrowUpRightDots },
-    { id: 4, name: "Word Cloud", icon: faCloud },
   ];
 
   let chartInfoTypes = [
     [
-      { id: 1, name: "General", icon: faPlusMinus },
-      { id: 2, name: "Positive", icon: faPlus },
-      { id: 3, name: "Negative", icon: faMinus },
-      { id: 4, name: "Neutral", icon: faGauge },
+      { id: 1, name: "General", icon: faGlobe },
+      { id: 2, name: "Size", icon: faMaximize },
+      { id: 3, name: "Material", icon: faTarp },
+      { id: 4, name: "Longevity", icon: faHourglassHalf },
+      { id: 4, name: "Design", icon: faPalette },
+      { id: 4, name: "Comfort", icon: faCouch },
     ],
     [
-      { id: 1, name: "General", icon: faPlusMinus },
-      { id: 2, name: "Positive", icon: faPlus },
-      { id: 3, name: "Negative", icon: faMinus },
-      { id: 4, name: "Neutral", icon: faGauge },
-    ],
-    [
-      { id: 1, name: "General", icon: faPlusMinus },
-      { id: 2, name: "Positive", icon: faPlus },
-      { id: 3, name: "Negative", icon: faMinus },
-      { id: 4, name: "Neutral", icon: faGauge },
-    ],
-    [
-      { id: 1, name: "General", icon: faPlusMinus },
-      { id: 2, name: "Positive", icon: faPlus },
-      { id: 3, name: "Negative", icon: faMinus },
-      { id: 4, name: "Neutral", icon: faGauge },
-      { id: 5, name: "Adjectives", icon: faGauge },
+      { id: 1, name: "General", icon: faGlobe },
+      { id: 2, name: "Size", icon: faMaximize },
+      { id: 3, name: "Material", icon: faTarp },
+      { id: 4, name: "Longevity", icon: faHourglassHalf },
+      { id: 4, name: "Design", icon: faPalette },
+      { id: 4, name: "Comfort", icon: faCouch },
     ],
   ];
 
@@ -74,6 +63,10 @@ function Charts(props) {
   const [currentInfoTypeID, setCurrentInfoTypeID] = useState(
     chartInfoTypes[currentChartID - 1][0].id
   );
+
+  const location = useLocation();
+  console.log(location);
+  const sentimentData = location.state.resJson.sentiment_data;
 
   const words = [
     { text: "Hey", value: 1000 },
@@ -110,32 +103,28 @@ function Charts(props) {
           x: faker.datatype.number({ min: -100, max: 100 }),
           y: faker.datatype.number({ min: -100, max: 100 }),
         })),
-        backgroundColor: "rgba(255, 99, 132, 1)",
+        backgroundColor: "#fac26d",
       },
     ],
   };
 
+  const labels = ["Neutral", "Negative", "Positive"];
+
   const pieData = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    labels: labels,
     datasets: [
       {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
+        label: "Dataset",
+        data: sentimentData,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
           "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
         ],
         borderWidth: 1,
       },
@@ -155,22 +144,12 @@ function Charts(props) {
     },
   };
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
   const data = {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        label: "Dataset",
+        data: sentimentData,
         backgroundColor: "#fac26d",
       },
     ],
@@ -266,7 +245,7 @@ function Charts(props) {
               <Pie data={pieData} />
             </div>
 
-            <div
+            {/* <div
               className={
                 "chart" +
                 " " +
@@ -284,7 +263,7 @@ function Charts(props) {
               }
             >
               <WordCloud data={words} />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

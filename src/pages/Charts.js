@@ -44,17 +44,17 @@ function Charts(props) {
       { id: 1, name: "General", icon: faGlobe },
       { id: 2, name: "Size", icon: faMaximize },
       { id: 3, name: "Material", icon: faTarp },
-      { id: 4, name: "Longevity", icon: faHourglassHalf },
+      // { id: 4, name: "Longevity", icon: faHourglassHalf },
       { id: 4, name: "Design", icon: faPalette },
-      { id: 4, name: "Comfort", icon: faCouch },
+      { id: 5, name: "Comfort", icon: faCouch },
     ],
     [
       { id: 1, name: "General", icon: faGlobe },
       { id: 2, name: "Size", icon: faMaximize },
       { id: 3, name: "Material", icon: faTarp },
-      { id: 4, name: "Longevity", icon: faHourglassHalf },
+      // { id: 4, name: "Longevity", icon: faHourglassHalf },
       { id: 4, name: "Design", icon: faPalette },
-      { id: 4, name: "Comfort", icon: faCouch },
+      { id: 5, name: "Comfort", icon: faCouch },
     ],
   ];
 
@@ -67,6 +67,10 @@ function Charts(props) {
   const location = useLocation();
   console.log(location);
   const sentimentData = location.state.resJson.sentiment_data;
+  const sizeData = location.state.resJson.size_data;
+  const materialData = location.state.resJson.material_data;
+  const designData = location.state.resJson.design_data;
+  const comfortData = location.state.resJson.comfort_data;
 
   const words = [
     { text: "Hey", value: 1000 },
@@ -108,23 +112,41 @@ function Charts(props) {
     ],
   };
 
-  const labels = ["Neutral", "Negative", "Positive"];
+  const labels = [
+    ["Neutral", "Negative", "Positive"],
+    ["No aspect", "Neutral", "Negative", "Positive"],
+    ["No aspect", "Neutral", "Negative", "Positive"],
+    ["No aspect", "Neutral", "Negative", "Positive"],
+    ["No aspect", "Neutral", "Negative", "Positive"],
+  ];
+
+  var currLabels = labels[currentInfoTypeID - 1];
+
+  const data_array = [
+    sentimentData,
+    sizeData,
+    materialData,
+    designData,
+    comfortData,
+  ];
 
   const pieData = {
-    labels: labels,
+    labels: currLabels,
     datasets: [
       {
         label: "Dataset",
-        data: sentimentData,
+        data: data_array[currentInfoTypeID - 1],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
           "rgba(255, 206, 86, 0.2)",
+          "rgba(255, 100, 30, 0.2)",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
+          "rgba(255, 100, 30, 1)",
         ],
         borderWidth: 1,
       },
@@ -144,12 +166,12 @@ function Charts(props) {
     },
   };
 
-  const data = {
-    labels,
+  var data = {
+    labels: currLabels,
     datasets: [
       {
         label: "Dataset",
-        data: sentimentData,
+        data: data_array[currentInfoTypeID - 1],
         backgroundColor: "#fac26d",
       },
     ],
@@ -162,6 +184,10 @@ function Charts(props) {
 
   const selectChart = (chartOB) => {
     setCurrentChartID(parseInt(chartOB.id));
+  };
+
+  const selectInfoType = (TypeOB) => {
+    setCurrentInfoTypeID(parseInt(TypeOB.id));
   };
 
   const downloadChart = async () => {
@@ -202,7 +228,7 @@ function Charts(props) {
               <div
                 key={i}
                 id={infoTypeOB.id}
-                onClick=""
+                onClick={() => selectInfoType(infoTypeOB)}
                 className={
                   "chart-btn" +
                   " " +
